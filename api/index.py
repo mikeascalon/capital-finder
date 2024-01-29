@@ -11,16 +11,21 @@ class handler(BaseHTTPRequestHandler):
 
         if "capital" in dic:
             url = "https://restcountries.com/v3.1/name/"
-            r = requests.get(url + dic["capital"])
+            country_name = dic["capital"]
+
+            r = requests.get(url + dic["country_name"])
+        
             data = r.json()
             informations = []
+
             for word_data in data:
-                capital = word_data["name"][0]["informations"][0]["captital"]
-                informations.append(captital)
+                if "capital" in word_data:  # Check if "capital" key exists
+                    capital = word_data["capital"][0]  # Corrected "captital" to "capital"
+                    informations.append(capital)
             message = str(informations)
 
         else:
-            message = "Give me a word to define please"
+            message = "Give me a country to find the capital please"
 
         self.send_response(200)
         self.send_header('Content-type','text/plain')
