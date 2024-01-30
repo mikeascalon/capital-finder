@@ -20,9 +20,26 @@ class handler(BaseHTTPRequestHandler):
         #     r = requests.get(url + country_name)
             r = requests.get(url)
             data = r.json()
-            capital_info = data[0]["capital"]
-            join_capitals = " and ".join(capital_info)
-            message = f"the capital of {country_name} is {join_capitals}"
+            if data and isinstance(data, list) and "capital" in data[0]:
+                capital_info = data[0]["capital"]
+                join_capitals = " and ".join(capital_info)
+                message = f"The capital of {country_name} is {join_capitals}"
+            else:
+                message = f"Capital information not found for {country_name}."
+
+        elif capital:
+            url = f"https://restcountries.com/v3.1/capital/{capital}"
+  
+            r = requests.get(url)
+            data = r.json()
+            if data and isinstance(data, list) and "name" in data[0]:
+                country_name = data[0]["name"]["common"]
+                message = f"The country with capital {capital} is {country_name}."
+            else:
+                message = f"No country found with capital {capital}."
+        else:
+            message = "Please provide a valid 'country' or 'capital' query parameter."
+    
         #     # informations = []
 
         #     # for countries in data:
