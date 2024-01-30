@@ -13,14 +13,14 @@ class handler(BaseHTTPRequestHandler):
             url = "https://restcountries.com/v3.1/name/"
             country_name = dic["capital"]
 
-            r = requests.get(url + dic["country_name"])
+            r = requests.get(url + country_name)
         
             data = r.json()
             informations = []
 
-            for word_data in data:
-                if "capital" in word_data:  # Check if "capital" key exists
-                    capital = word_data["capital"][0]  # Corrected "captital" to "capital"
+            for countries in data:
+                if "capital" in countries:  # Check if "capital" key exists
+                    capital = countries["capital"] # Corrected "captital" to "capital"
                     informations.append(capital)
             message = str(informations)
 
