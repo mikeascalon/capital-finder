@@ -12,12 +12,10 @@ class handler(BaseHTTPRequestHandler):
 
         country_name = dic.get("country")
         capital = dic.get("capital")
-        # if country_name in dic:  # Corrected the key to "country_name"
+       
         if country_name:
             url = f"https://restcountries.com/v3.1/name/{country_name}"
-        #     # country_name = dic[country_name]
 
-        #     r = requests.get(url + country_name)
             r = requests.get(url)
             data = r.json()
             if data and isinstance(data, list) and "capital" in data[0]:
@@ -40,18 +38,7 @@ class handler(BaseHTTPRequestHandler):
         else:
             message = "Please provide a valid 'country' or 'capital' query parameter."
     
-        #     # informations = []
 
-        #     # for countries in data:
-        #     #     if "capital" in countries:  # Check if "capital" key exists
-        #     #         capital = countries["capital"]
-        #     #         informations.append(capital)
-        #     # message = str(informations)
-        #     message = "country found"
-
-        # else:
-        #     message = "Give me a country to find the capital please"
-        # message = "country found"
         self.send_response(200)
         self.send_header('Content-type','text/plain')
         self.end_headers()
