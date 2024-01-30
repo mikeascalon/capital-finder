@@ -10,9 +10,9 @@ class handler(BaseHTTPRequestHandler):
         query_string_list = parse.parse_qsl(url_components.query)
         dic = dict(query_string_list)
 
-        if "capital" in dic:
+        if "country_name" in dic:  # Corrected the key to "country_name"
             url = "https://restcountries.com/v3.1/name/"
-            country_name = dic["capital"]
+            country_name = dic["country_name"]
 
             r = requests.get(url + country_name)
         
@@ -21,7 +21,7 @@ class handler(BaseHTTPRequestHandler):
 
             for countries in data:
                 if "capital" in countries:  # Check if "capital" key exists
-                    capital = countries["capital"] # Corrected "captital" to "capital"
+                    capital = countries["capital"]
                     informations.append(capital)
             message = str(informations)
 
