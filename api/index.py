@@ -10,7 +10,7 @@ class handler(BaseHTTPRequestHandler):
         query_string_list = parse.parse_qsl(url_components.query)
         dic = dict(query_string_list)
 
-        country_name = dic.get("country")
+        country_name = dic.get("common")
         capital = dic.get("capital")
         # if country_name in dic:  # Corrected the key to "country_name"
         if country_name:
